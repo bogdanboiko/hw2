@@ -1,29 +1,31 @@
 package com.example.hw2.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hw2.R
+import com.example.hw2.databinding.ItemViewBinding
+import com.example.hw2.fragment.ItemClickListener
 
-class MenuAdapter(private val names: List<String>) :
+class MenuAdapter(private val names: List<String>, val listener : ItemClickListener) :
     RecyclerView.Adapter<MenuAdapter.MyViewHolder>() {
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var name: TextView? = null
+    class MyViewHolder(val binding: ItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bindTo(itemName: String, listener : ItemClickListener) {
+            binding.itemName.text = itemName
 
-        init {
-            name = itemView.findViewById(R.id.item_name)
+            binding.root.setOnClickListener {
+                listener.onItemClicked(itemName)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-       return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false))
+        return MyViewHolder(ItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.name?.text = names[position]
+        holder.bindTo(names[position], listener)
     }
 
     override fun getItemCount(): Int {
