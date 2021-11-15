@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw2.R
 import com.example.hw2.adapter.MenuAdapter
 import com.example.hw2.databinding.MenuFragmentBinding
+import com.example.hw2.model.CategoryData
 
 interface ItemClickListener {
-    fun onItemClicked(item: String)
+    fun onItemClicked(id: Int)
 }
 
 class MenuFragment : Fragment(R.layout.menu_fragment) {
@@ -24,8 +25,9 @@ class MenuFragment : Fragment(R.layout.menu_fragment) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         binding.recyclerMenu.apply {
-            adapter = MenuAdapter(listOf("a", "b", "c", "d", "e"), requireActivity() as ItemClickListener)
+            adapter = MenuAdapter(CategoryData.getCategories(), requireActivity() as ItemClickListener)
             layoutManager = LinearLayoutManager(view.context)
         }
 

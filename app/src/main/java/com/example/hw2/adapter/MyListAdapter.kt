@@ -6,9 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hw2.databinding.ItemViewBinding
-import com.example.hw2.model.Category
 
-class MyListAdapter : ListAdapter<Category, MyListAdapter.MyViewHolder>(Diff) {
+class MyListAdapter : ListAdapter<String, MyListAdapter.MyViewHolder>(Diff) {
     class MyViewHolder(val binding: ItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindTo(itemName: String) {
@@ -21,16 +20,16 @@ class MyListAdapter : ListAdapter<Category, MyListAdapter.MyViewHolder>(Diff) {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bindTo(getItem(position).item)
+        holder.bindTo(getItem(position))
     }
 
-    object Diff : DiffUtil.ItemCallback<Category>() {
-        override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+    object Diff : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
-            return oldItem.item == newItem.item
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
         }
     }
 }

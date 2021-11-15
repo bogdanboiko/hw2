@@ -2,20 +2,20 @@ package com.example.hw2.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hw2.databinding.ItemViewBinding
 import com.example.hw2.fragment.ItemClickListener
+import com.example.hw2.model.Category
 
-class MenuAdapter(private val names: List<String>, val listener : ItemClickListener) :
+class MenuAdapter(private val names: List<Category>, val listener : ItemClickListener) :
     RecyclerView.Adapter<MenuAdapter.MyViewHolder>() {
 
     class MyViewHolder(val binding: ItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bindTo(itemName: String, listener : ItemClickListener) {
-            binding.itemName.text = itemName
+        fun bindTo(category: Category, listener : ItemClickListener) {
+            binding.itemName.text = category.item
 
             binding.root.setOnClickListener {
-                listener.onItemClicked(itemName)
+                listener.onItemClicked(category.id)
             }
         }
     }

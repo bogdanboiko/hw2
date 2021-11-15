@@ -1,6 +1,7 @@
 package com.example.hw2.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,18 +11,18 @@ import com.example.hw2.R
 import com.example.hw2.adapter.MyListAdapter
 import com.example.hw2.databinding.ListFragmentBinding
 import com.example.hw2.model.Category
+import com.example.hw2.model.CategoryData
 
 class ListFragment : Fragment(R.layout.list_fragment) {
     private lateinit var binding : ListFragmentBinding
-    private val properties = HashMap<String, List<Category>>()
+    private val properties = HashMap<Int, Category>()
     private val myAdapter: MyListAdapter = MyListAdapter()
+    private var currentId: Int = 1
 
     init {
-        properties.put("a", mutableListOf(Category("a"), Category("a"), Category("a")))
-        properties.put("b", mutableListOf(Category("b"), Category("b"), Category("b")))
-        properties.put("c", mutableListOf(Category("c"), Category("c"), Category("c")))
-        properties.put("d", mutableListOf(Category("d"), Category("d"), Category("d")))
-        properties.put("e", mutableListOf(Category("e"), Category("e"), Category("e")))
+        for (category in CategoryData.getCategories()) {
+            properties.put(category.id, category)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -36,12 +37,21 @@ class ListFragment : Fragment(R.layout.list_fragment) {
             layoutManager = LinearLayoutManager(view.context)
         }
 
-        myAdapter.submitList(properties["a"])
+        if (savedInstanceState != null) {
+            currentId = savedInstanceState.getInt("id")
+        }
 
+        myAdapter.submitList(properties[currentId]?.subItems)
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun onItemPressed(name : String) {
-        myAdapter.submitList(properties.get(name))
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt("id", currentId)
+        super.onSaveInstanceState(outState)
+    }
+
+    fun onItemPressed(id : Int) {
+        currentId = id
+        myAdapter.submitList(properties[id]?.subItems)
     }
 }
