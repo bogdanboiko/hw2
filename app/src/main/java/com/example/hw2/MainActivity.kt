@@ -1,14 +1,25 @@
 package com.example.hw2
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.hw2.fragment.ItemClickListener
-import com.example.hw2.fragment.ListFragment
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.findFragment
+import com.example.hw2.databinding.ActivityMainBinding
+import com.example.hw2.fragment.*
 
-class MainActivity : AppCompatActivity(), ItemClickListener {
+class MainActivity : AppCompatActivity(R.layout.activity_main), ItemClickListener {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(binding.itemsContainer.id, MenuFragment())
+            replace(binding.listContainer.id, ListFragment(), "tag_list")
+            commit()
+        }
     }
 
     override fun onItemClicked(item: String) {
