@@ -15,12 +15,11 @@ interface ItemClickListener {
 }
 
 class MenuFragment : Fragment(R.layout.menu_fragment) {
-    private var _binding : MenuFragmentBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding : MenuFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        _binding = MenuFragmentBinding.inflate(inflater, container, false)
+        binding = MenuFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 

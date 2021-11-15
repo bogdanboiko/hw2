@@ -12,8 +12,7 @@ import com.example.hw2.databinding.ListFragmentBinding
 import com.example.hw2.model.Category
 
 class ListFragment : Fragment(R.layout.list_fragment) {
-    private var _binding : ListFragmentBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding : ListFragmentBinding
     private val properties = HashMap<String, List<Category>>()
     private val myAdapter: MyListAdapter = MyListAdapter()
 
@@ -27,7 +26,7 @@ class ListFragment : Fragment(R.layout.list_fragment) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        _binding = ListFragmentBinding.inflate(inflater, container, false)
+        binding = ListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
