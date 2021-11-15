@@ -4,8 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:context=".MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/itemsContainer"
+        android:name="com.example.hw2.fragment.MenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/listContainer"
@@ -14,11 +21,4 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:tag="tag_list" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/itemsContainer"
-        android:name="com.example.hw2.fragment.MenuFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="6" />
 </LinearLayout>
